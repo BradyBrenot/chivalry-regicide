@@ -2,7 +2,8 @@ class RegicidePlayerController extends AOCTDPlayerController;
 	
 reliable client function ClientOnFirstSpawn()
 {
-	ReceiveChatMessage("",Localize("Regicide", "WelcomeChatText", "Regicide"),EFAC_ALL,false,false,,false);
+	//ReceiveChatMessage("",Localize("Regicide", "WelcomeChatText", "Regicide"),EFAC_ALL,false,false,,false);
+	ReceiveChatMessage("","Regicide: a team-based game mode. One king is assigned per team at one time. Kill the enemy's king to score a point, whereupon another king will be assigned. King assignment is random and non-negotiable. First team to reach the kill goal wins. Playable on TD and LTS levels.",EFAC_ALL,false,false,,false);
 }
 	
 reliable client function ShowDefaultGameHeader()
@@ -13,7 +14,9 @@ reliable client function ShowDefaultGameHeader()
 		return;
 	}	
 
-	ClientShowLocalizedHeaderText(Localize("Regicide","SpawnHeader","Regicide"),,Localize("Regicide","SpawnSubHeader","Regicide"),true,true);
+	//ClientShowLocalizedHeaderText(Localize("Regicide","SpawnHeader","Regicide"),,Localize("Regicide","SpawnSubHeader","Regicide"),true,true);
+	
+	ClientShowLocalizedHeaderText("Regicide",,"Protect your king, kill the enemy's!",true,true);
 }
 
 function NotifyChosenAsKing(class<AOCFamilyInfo> KingClass)
@@ -32,16 +35,24 @@ function NotifyChosenAsKing(class<AOCFamilyInfo> KingClass)
 	RegicidePRI(PlayerReplicationInfo).bCurrentlyKing = true;
 	RegicidePRI(PlayerReplicationInfo).CurrentKingFamily = AOCGRI(Worldinfo.GRI).GetOrSpawnFamilyInfoFromClass(KingClass);
 	
-	ClientShowLocalizedHeaderText(Localize("Regicide","ChosenAsKingHeader","Regicide"),,Localize("Regicide","ChosenAsKingSubHeader","Regicide"),true,true);
+	//ClientShowLocalizedHeaderText(Localize("Regicide","ChosenAsKingHeader","Regicide"),,Localize("Regicide","ChosenAsKingSubHeader","Regicide"),true,true);
+	ClientShowLocalizedHeaderText("You've been made king!",,"Don't let the enemies kill you!",true,true);
 }
 
 reliable client function NotifyKingKilled(EAOCFaction KingFaction, PlayerReplicationInfo OldKing, PlayerReplicationInfo NewKing)
 {
 	//Woe!
-	ReceiveChatMessage("",
+	/*ReceiveChatMessage("",
 		Repl(
 			Repl(
 				Repl(Localize("Regicide", "KingHasDied", "Regicide"), "{OLDKING}", OldKing.GetPlayerNameForMarkup()),
+				"{NEWKING}", NewKing.GetPlayerNameForMarkup()),
+			"{FACTION}", Localize("Common", KingFaction == EFAC_Agatha ? "AgathaKnights" : "MasonOrder", "AOCUI"))
+		,EFAC_ALL,false,false,,false);*/
+	ReceiveChatMessage("",
+		Repl(
+			Repl(
+				Repl("{OLDKING} has perished! {NEWKING} takes the {FACTION} throne!", "{OLDKING}", OldKing.GetPlayerNameForMarkup()),
 				"{NEWKING}", NewKing.GetPlayerNameForMarkup()),
 			"{FACTION}", Localize("Common", KingFaction == EFAC_Agatha ? "AgathaKnights" : "MasonOrder", "AOCUI"))
 		,EFAC_ALL,false,false,,false);
