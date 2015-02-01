@@ -1,0 +1,6 @@
+[Regicide]
+SpawnHeader=Regicide
+SpawnSubHeader=Protect your king, kill the enemy's!
+WelcomeChatText=Regicide: a team-based game mode. One king is assigned per team at one time. Kill the enemy's king to score a point, whereupon another king will be assigned. King assignment is random and non-negotiable. First team to reach the kill goal wins. Playable on TD and LTS levels.
+KingHasDied={OLDKING} has perished! {NEWKING} takes the {FACTION} throne!
+NewKing={NEWKING} takes the {FACTION} throne!

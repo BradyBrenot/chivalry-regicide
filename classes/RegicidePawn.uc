@@ -1,0 +1,1 @@
+class RegicidePawn extends AOCPawn;
