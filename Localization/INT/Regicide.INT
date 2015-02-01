@@ -6,3 +6,5 @@ KingHasDied={OLDKING} has perished! {NEWKING} takes the {FACTION} throne!
 NewKing={NEWKING} takes the {FACTION} throne!
 ChosenAsKingHeader=You've been made king!
 ChosenAsKingSubHeader=Don't let the enemies kill you!
+ObjectiveName=Regicide
+ObjectiveDescription=Kill the enemy king!

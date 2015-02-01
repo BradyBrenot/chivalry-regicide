@@ -222,4 +222,7 @@ DefaultProperties
     PlayerControllerClass=class'RegicidePlayerController'
     DefaultPawnClass=class'RegicidePawn'
 	PlayerReplicationInfoClass=class'RegicidePRI'
+	GameReplicationInfoClass=class'RegicideGRI'
+	ModDisplayString="Regicide"
+	ModeDisplayString="Regicide"
 }
