@@ -32,7 +32,7 @@ function NotifyChosenAsKing(class<AOCFamilyInfo> KingClass)
 	RegicidePRI(PlayerReplicationInfo).bCurrentlyKing = true;
 	RegicidePRI(PlayerReplicationInfo).CurrentKingFamily = AOCGRI(Worldinfo.GRI).GetOrSpawnFamilyInfoFromClass(KingClass);
 	
-	ClientShowLocalizedHeaderText("You're a king!",,"Don't die!",true,true);
+	ClientShowLocalizedHeaderText(Localize("Regicide","ChosenAsKingHeader","Regicide"),,Localize("Regicide","ChosenAsKingSubHeader","Regicide"),true,true);
 }
 
 reliable client function NotifyKingKilled(EAOCFaction KingFaction, PlayerReplicationInfo OldKing, PlayerReplicationInfo NewKing)
