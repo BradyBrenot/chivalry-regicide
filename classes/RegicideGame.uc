@@ -32,6 +32,8 @@ state AOCRoundInProgress
 			{
 				ScoringTeam = Teams[0];
 			}
+			
+			++ScoringTeam.Score;
 
 			NewHighScore = Max(CurHighestScore, ScoringTeam.Score);
 			if (NewHighScore > CurHighestScore && NewHighScore < GoalScore)
