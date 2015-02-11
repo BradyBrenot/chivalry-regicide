@@ -137,7 +137,7 @@ function PickANewKing(EAOCFaction Faction)
 	
 	StartIndex = Rand(AllControllers.Length);
 	BestIndex = StartIndex;
-	BestTimesAsKing = RegicidePRI(AllControllers[i].PlayerReplicationInfo).TimesChosenAsKing;
+	BestTimesAsKing = RegicidePRI(AllControllers[BestIndex].PlayerReplicationInfo).TimesChosenAsKing;
 	
 	for(i = (StartIndex + 1) % AllControllers.Length; i != StartIndex; i = (i + 1) % AllControllers.Length)
 	{
@@ -179,15 +179,15 @@ function PerformOnSpawn(Controller C)
 	if(RegicidePRI(C.PlayerReplicationInfo).bCurrentlyKing && C.Pawn != none)
 	{
 		Faction = RegicidePRI(C.PlayerReplicationInfo).GetCurrentTeam();
-		if(KingMarkers[Faction] == none)
+		
+		if(KingMarkers[Faction] != none)
 		{
-			NewMarker = Spawn(class'CMWHUDMarker');
-			KingMarkers[Faction] = NewMarker;
+			KingMarkers[Faction].Destroy();
+			KingMarkers[Faction] = none;
 		}
-		else
-		{
-			NewMarker = KingMarkers[Faction];
-		}
+		
+		NewMarker = Spawn(class'CMWHUDMarker');
+		KingMarkers[Faction] = NewMarker;
 
 		NewMarker.bDestroySelfIfBaseKilledOrDestroyed = true;
 		NewMarker.bSetRelativeLocationFromBase = false;
@@ -199,14 +199,16 @@ function PerformOnSpawn(Controller C)
 		NewMarker.bShowProgress = false;
 		NewMarker.fMaxDistanceToShow = -1;
 
-		NewMarker.FloatTextAgatha = "Defend";
-		NewMarker.FloatTextMason = "Defend";
-		NewMarker.ShowToTeam = Faction;
+		NewMarker.FloatTextAgatha = Faction == EFAC_Agatha ? "Defend" : "Kill";
+		NewMarker.FloatTextMason = Faction == EFAC_Mason ? "Defend" : "Kill";
+		NewMarker.ShowToTeam = EFAC_ALL;
 		NewMarker.bUseTextAsLocalizationKey = true;
 		NewMarker.SectionName = "HudMarker";
 		NewMarker.PackageName = "AOCMaps";
-		NewMarker.AgathaImagePath = "img://UI_HUD_SWF.icon_defend_png";
-		NewMarker.MasonImagePath = "img://UI_HUD_SWF.icon_defend_png";
+		NewMarker.AgathaImagePath = Faction == EFAC_Agatha ? "img://UI_HUD_SWF.icon_defend_png" : "img://UI_HUD_SWF.icon_kill_png";
+		NewMarker.MasonImagePath = Faction == EFAC_Mason ? "img://UI_HUD_SWF.icon_defend_png" : "img://UI_HUD_SWF.icon_kill_png";
+		
+		C.Pawn.bAlwaysRelevant = true;
 	}
 }
 
@@ -225,6 +227,6 @@ DefaultProperties
     DefaultPawnClass=class'RegicidePawn'
 	PlayerReplicationInfoClass=class'RegicidePRI'
 	GameReplicationInfoClass=class'RegicideGRI'
-	ModDisplayString="Regicide"
+	ModDisplayString="Regicide v1.1"
 	ModeDisplayString="Regicide"
 }
